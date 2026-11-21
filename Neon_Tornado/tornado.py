@@ -87,7 +87,7 @@ def ring_pt(x0, y, r, ang):
     c, s = math.cos(ang), math.sin(ang)
     return x0 + r * c, y + r * 0.2 * s
 
-def tunnel(tm, extent, power, cx):
+def funnel(tm, extent, power, cx):
     wd = 0.35 + 0.65 * power
     for k in range(46):
         u = k / 45
@@ -113,7 +113,7 @@ def debris(tm, extent, power, cx):
         a0 = rng.uniform(0, 6.283)
         u0, kf = rng.random(), rng.uniform(1.0, 1.8)
         spd = rng.uniform(0.12, 0.3)
-        size = rng.radint(2, 5)
+        size = rng.randint(2, 5)
         hue = rng.choice([0.08, 0.55, 0.9, 0.12])
         u = 1 - extent + (u0 + tm * spd) % 1 * extent
         r = (6 + 80 * u ** 1.9) * kf
@@ -133,3 +133,48 @@ def dust(tm, cx, power):
         t.goto(cx + rad * math.cos(a), GROUND + 6 + rad * 0.18 * math.sin(a))
         glow = neon(0.04, 0.7, 0.45 * power)
         t.dot(rng.uniform(8, 16), glow)
+
+def rain(tm, fl):
+    col = mix((0.25, 0.28, 0.45), (0.8, 0.85, 1), fl)
+    for i in range(90):
+        x = (i * 61) % 820 - 410
+        y = 250 - (tm * 380 + i * 47) % 500
+        stroke([(x, y), (x - 8, y - 16)], col, 1)
+
+def frame(i, extent, power, cx):
+    tm = i / 30
+    fl = flash_at(i)
+    t.clear()
+    sky(fl)
+    ground(fl)
+    clouds(tm, cx, fl, power)
+    dust(tm, cx, power)
+    funnel(tm, extent, power, cx)
+    debris(tm, extent, power, cx)
+    rain(tm, fl)
+    screen.update()
+
+def play(k, motion):
+    a, b = SPANS[k]
+    for i in range(a, b):
+        u = (i - a) / (b - a - 1)
+        extent, power, cx = motion(u)
+        frame(i, extent, power, cx)
+
+def gather():
+    play(0, lambda u: (0, 0.1 + 0.2 * u, -150))
+
+def touchdown():
+    play(1, lambda u: (ease(u), 0.3 + 0.5 * u, -150 + 20 * u))
+
+def rage():
+    play(2, lambda u: (1, 0.65 + 0.15 * math.sin(u * 9), -130 + 300 * u))
+
+def dissipate():
+    play(3, lambda u: (1 - 0.7 * u, 1 - u, 170 + 60 * u))
+
+gather()
+touchdown()
+rage()
+dissipate()
+turtle.done()
