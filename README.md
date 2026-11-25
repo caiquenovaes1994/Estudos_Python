@@ -1,12 +1,14 @@
-# Estudos em Python
+# Python Studies
 
-Repositório dedicado ao aprendizado, prática e desenvolvimento de projetos, scripts e jogos em Python.
+🇺🇸 English | [🇧🇷 Português (PT-BR)](./README.pt-BR.md)
 
-## Projetos
+Repository dedicated to learning, practicing, and developing projects, scripts, and games in Python.
 
-- **Urna Eletrônica**: Simulador gráfico de urna eletrônica desenvolvido com Pygame.
-- **Falling Leaves**: Animação de folhas de outono caindo feita com Tkinter Canvas.
-- **WiFi Infos**: Scripts para diagnóstico e obtenção de informações de redes Wi-Fi.
-- **SpeedTest**: Script para medição de velocidade de conexão de internet.
-- **campo_minado.py**: Jogo de Campo Minado.
-- **tetris.py**: Implementação do jogo Tetris.
+## Projects
+
+- **Urna Eletrônica**: Graphical Brazilian electronic voting machine simulator built with Pygame.
+- **Falling Leaves**: Falling autumn leaves animation created with Tkinter Canvas.
+- **WiFi Infos**: Scripts for diagnostics and retrieving Wi-Fi network information.
+- **SpeedTest**: Script for measuring internet connection speed.
+- **campo_minado.py**: Minesweeper game.
+- **tetris.py**: Tetris game implementation.
